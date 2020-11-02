@@ -1,7 +1,8 @@
 
-import com.sun.glass.events.KeyEvent;
+//import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import java.util.Scanner; 
 import java.io.*; 
