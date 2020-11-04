@@ -3,6 +3,10 @@ package ql_phan_thuong;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -29,6 +33,14 @@ public class MidAutumn extends javax.swing.JFrame {
     /**
      * Creates new form MidAutumn
      */
+    final String url = "jdbc:mysql://localhost:3306/homework_db";
+    final String user = "root";
+    final String password = "";
+    
+    Connection con = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    
     public MidAutumn() {
         initComponents();
     }
@@ -65,6 +77,8 @@ public class MidAutumn extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        TruongHoc = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,6 +157,9 @@ public class MidAutumn extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Sản Phẩm được tạo bởi nhóm A+ CNPM CopyRight 2020");
 
+        jLabel13.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel13.setText("Truong");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,30 +184,31 @@ public class MidAutumn extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel6)))
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel13))
                         .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(GiaTri, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(SoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(Them)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1))
-                                .addComponent(ConOng, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(Tuoi, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(74, 74, 74)
-                                            .addComponent(jLabel9)
-                                            .addGap(32, 32, 32)
-                                            .addComponent(GioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(HoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(DiaChi, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(PhanQua, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(ConBa, javax.swing.GroupLayout.Alignment.LEADING)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(Them)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1))
+                            .addComponent(ConOng)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Tuoi, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel9)
+                                        .addGap(38, 38, 38)
+                                        .addComponent(GioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(HoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(DiaChi)
+                            .addComponent(PhanQua)
+                            .addComponent(ConBa)
+                            .addComponent(TruongHoc))))
                 .addContainerGap(54, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,27 +228,31 @@ public class MidAutumn extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(HoTen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Tuoi, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Tuoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
                             .addComponent(jLabel9)
-                            .addComponent(GioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(39, 39, 39)
+                            .addComponent(GioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(39, 100, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(ConOng, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19)
+                .addComponent(ConBa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TruongHoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
                 .addGap(18, 18, 18)
-                .addComponent(ConBa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(69, 69, 69)
+                        .addComponent(DiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addGroup(layout.createSequentialGroup()
@@ -238,19 +260,21 @@ public class MidAutumn extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
-                                    .addComponent(SoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(DiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(GiaTri, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Them)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
-                .addGap(3, 3, 3))
+                                    .addComponent(SoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(GiaTri, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Them)
+                            .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12)
+                        .addGap(3, 3, 3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -264,6 +288,28 @@ public class MidAutumn extends javax.swing.JFrame {
         gioitinh = GioiTinh.getSelectedItem().toString();
     }//GEN-LAST:event_GioiTinhActionPerformed
 
+    private boolean checkExistEntity(String entity, String column, String table){
+        
+        try{
+            con = DriverManager.getConnection(url, user, password);
+            String sql = "SELECT * FROM " + table;
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()){
+                if(rs.getString(column).equals(entity) == true){
+                    return true;
+                }
+            }
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+            
+        }
+        return false;
+        
+    }
+    
     private void ThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThemActionPerformed
         if(HoTen.getText().equals("")||Tuoi.getText().equals("")||
            ConOng.getText().equals("")||ConBa.getText().equals("")||
@@ -272,6 +318,7 @@ public class MidAutumn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane,"Vui Lòng Nhập Đầy Đủ Thông Tin !");
         }
         else{
+            /*
             String path = "src/ql_phan_thuong/excel/MidAutumn.xlsx";
             try {
                 FileInputStream FIS = new FileInputStream(path);
@@ -305,15 +352,146 @@ public class MidAutumn extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(MidAutumn.class.getName()).log(Level.SEVERE, null, ex);
             }
+            */
+            try{
+                con = DriverManager.getConnection(url, user, password);
+                String insert = "";
+
+                if ((checkExistEntity(ConOng.getText().trim(), "Father", "Family") == false) 
+                        || (checkExistEntity(ConBa.getText().trim(), "Mother", "Family") == false)){
+                    insert = "INSERT INTO Family(`Father`, `Mother`, `Address`)"
+                            + "VALUES (?, ?, ?)";
+                    pst = con.prepareStatement(insert);
+                    pst.setString(1, ConOng.getText().trim());
+                    pst.setString(2, ConBa.getText().trim());
+                    pst.setString(3, DiaChi.getText().trim());
+                    pst.executeUpdate();
+                }
+
+                if (checkExistEntity(HoTen.getText().trim(), "Name", "Recipient") == false){
+                    insert = "INSERT INTO Recipient(`Name`, `Age`, `Sex`, `School`, `ID_Family`) "
+                            + "VALUES (?, ?, ?, ?, ?)";
+                    String sex = GioiTinh.getSelectedItem().toString().trim();
+                    pst = con.prepareStatement(insert);
+                    pst.setString(1, HoTen.getText().trim());
+                    pst.setString(2, Tuoi.getText().trim());
+                    pst.setString(3, sex);
+                    pst.setString(4, TruongHoc.getText().trim());
+                    // select id_family to insert
+                    String sel = "SELECT * FROM Family "
+                            + "WHERE Father like ? AND Mother like ?";
+                    PreparedStatement pst2 = con.prepareStatement(sel);
+                    pst2.setString(1, ConOng.getText().trim());
+                    pst2.setString(2, ConBa.getText().trim());
+                    ResultSet idRes = pst2.executeQuery();
+                    while(idRes.next()){
+                        int idFamily = idRes.getInt("ID");
+                        pst.setString(5, Integer.toString(idFamily));
+                    }
+                    pst.executeUpdate();
+                    System.out.println("INSERT sucessful");
+                }
+
+                // if Gift have same name but different cost => flag = -1
+                String sql = "SELECT * FROM Gift";
+                PreparedStatement pst2 = con.prepareStatement(sql);
+                ResultSet rs2 = pst2.executeQuery();
+                int flag = -1;
+                while(rs2.next()){
+                    if(rs2.getInt("Cost") == Integer.parseInt(GiaTri.getText().trim())){
+                        flag = 0;
+                    }
+                }
+
+                boolean c = checkExistEntity(PhanQua.getText().trim(), "Gift_Name", "Gift");
+                if ((c == false) || (c == true && flag == -1) ){
+                    insert = "INSERT INTO Gift(`Gift_Name`, `Cost`) "
+                            + "VALUES (?, ?)";
+                    pst = con.prepareStatement(insert);
+                    pst.setString(1, PhanQua.getText().trim());
+                    pst.setString(2, GiaTri.getText().trim());
+                    pst.executeUpdate();
+                    System.out.println("inserted into Gift table");
+                }
+
+                // add row to Receive_Gift table
+                // get id of recipient
+                String selectID = "SELECT * FROM Recipient, Family "
+                        + "WHERE Recipient.ID_Family = Family.ID";
+                pst = con.prepareStatement(selectID);
+                ResultSet rs = pst.executeQuery();
+                int idRecipient = -1;
+                while (rs.next()){
+                    if (rs.getString("Name").equals(HoTen.getText().trim()) 
+                            && (rs.getString("Father").equals(ConOng.getText().trim())) 
+                            && (rs.getString("Mother").equals(ConBa.getText().trim())) 
+                            && (rs.getString("Address").equals(DiaChi.getText().trim()))){
+                        idRecipient = rs.getInt("ID");
+                    }
+                }
+                int idEvent = -1;
+                int idGift = -1;
+                int idAchievement = -1;
+                // get id of Gift
+                selectID = "SELECT * FROM Gift "
+                        + "WHERE Gift.Gift_Name = ?";
+                pst = con.prepareStatement(selectID);
+                pst.setString(1, PhanQua.getText().trim());
+                rs = pst.executeQuery();
+                while(rs.next()){
+                    idGift = rs.getInt("ID");
+                }
+                // get id of Event 
+                selectID = "SELECT * FROM Event "
+                        + "WHERE Event.Name = ?";
+                pst = con.prepareStatement(selectID);
+                pst.setString(1, "Trung thu");
+                rs = pst.executeQuery();
+                while(rs.next()){
+                    idEvent = rs.getInt("ID");
+                }
+                // get id of Achievement
+                selectID = "SELECT * FROM Achievement "
+                        + "WHERE Achievement.Achievement_Name = ?";
+                pst = con.prepareStatement(selectID);
+                pst.setString(1, "Dịp đặc biệt");
+                rs = pst.executeQuery();
+                while(rs.next()){
+                    idAchievement = rs.getInt("ID");
+                }
+
+                insert = "INSERT INTO Receive_Gift"
+                        + "(`ID_Recipient`, `ID_Gift`, `ID_Event`, `ID_Achievement`, `Quantity`) "
+                        + "VALUES (?, ?, ?, ?, ?)";
+                pst = con.prepareStatement(insert);
+                pst.setString(1, Integer.toString(idRecipient));
+                pst.setString(2, Integer.toString(idGift));
+                pst.setString(3, Integer.toString(idEvent));
+                pst.setString(4, Integer.toString(idAchievement));
+                pst.setString(5, Integer.toString((Integer) SoLuong.getValue()));
+                pst.executeUpdate();
+
+                JOptionPane.showMessageDialog(rootPane, "Đã Lưu !");
+            }
+            catch(Exception ex){
+    //            JOptionPane.showMessageDialog(rootPane, ex);
+                ex.printStackTrace();
+            }
             JOptionPane.showMessageDialog(rootPane, "Đã Lưu !");
         }
     }//GEN-LAST:event_ThemActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        /*
         TetTrungThuList tttl = new TetTrungThuList();
         tttl.setVisible(true);
         tttl.setResizable(false);
-        tttl.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);                      
+        tttl.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        */
+        DisplayDB d = new DisplayDB();
+        d.setVisible(true);
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -362,12 +540,14 @@ public class MidAutumn extends javax.swing.JFrame {
     private javax.swing.JTextField PhanQua;
     private javax.swing.JSpinner SoLuong;
     private javax.swing.JButton Them;
+    private javax.swing.JTextField TruongHoc;
     private javax.swing.JTextField Tuoi;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
